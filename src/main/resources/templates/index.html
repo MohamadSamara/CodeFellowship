@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        span {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .info-container {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .creative-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0028e9;
+            background-image: linear-gradient(119deg, #0028e9 0%, #80c3d0 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            margin-right: 10px;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .creative-button:hover {
+            background-color: #0876ea;
+            background-image: linear-gradient(110deg, #0876ea 30%, #2ad4f5 67%);
+            transform: scale(1.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to Home Page</h1>
+
+    <div class="info-container">
+        <p>
+            <h3 th:if="${user != null}">
+                <span th:text="${'User Name : ' + user.username }"></span>
+                <span th:text="${'First Name : ' + user.firstName }"></span>
+                <span th:text="${'Last Name : ' + user.lastName }"></span>
+                <span th:text="${'Date Of Birth : ' + user.dateOfBirth }"></span>
+                <span th:text="${'Bio : ' + user.bio }"></span>
+            </h3>
+        </p>
+    </div>
+
+    <br>
+
+    <a th:if="!${user}" href="/login" class="creative-button">Log In</a>
+    <a th:if="!${user}" href="/signup" class="creative-button">Sign Up</a>
+    <a th:if="${user}" href="/logout" class="creative-button">Log Out</a>
+</div>
+</body>
+</html>
