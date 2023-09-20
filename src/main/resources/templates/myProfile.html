@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User Information</title>
+    <style>
+        /* Reset some default styles */
+        body, h1, h2, h3, ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+       .info-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+img {
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 150px;
+}
+
+h3 {
+    font-size: 24px;
+    margin-top: 20px;
+    color: #333;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+legend {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+a.creative-button {
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding: 12px 25px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 18px;
+}
+
+a.creative-button:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+
+
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to Home Page</h1>
+
+    <div class="info-container">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShg8keaWuTWemET3-1mWqZae05N8W6SLGgGg&usqp=CAU" alt="Profile Picture" style="max-width: 100px; margin-top: 10px;">
+        <h3  th:if="${user != null}">
+            <span th:text="${'User Name : ' + user.username }"></span><br>
+            <span th:text="${'First Name : ' + user.firstName }"></span><br>
+            <span th:text="${'Last Name : ' + user.lastName }"></span><br>
+            <span th:text="${'Date Of Birth : ' + user.dateOfBirth }"></span><br>
+            <span th:text="${'Bio : ' + user.bio }"></span><br>
+        </h3>
+
+        <ul  th:if="${user != null}">
+            <li th:each="posts : ${post}">
+                <h2 th:text="${posts.body}"></h2>
+                <h2 th:text="${posts.createdAt}"></h2>
+            </li>
+        </ul>
+
+    </div>
+
+
+<div  th:if="${user != null}">
+
+    <form action="/addPost" method="post">
+        <fieldset>
+            <legend>Add Post</legend>
+
+            <input type="hidden" name="userId" th:value="${user.id}">
+
+            <label for="body">Post Body : </label>
+            <input type="text" name="body" id="body" required>
+            <br>
+            <input type="submit" value="Add Post">
+        </fieldset>
+    </form>
+
+</div>
+
+
+    <br>
+
+    <a th:if="!${user}" href="/login" class="creative-button">Log In</a>
+    <a th:if="!${user}" href="/signup" class="creative-button">Sign Up</a>
+    <a th:if="${user}" href="/logout" class="creative-button">Log Out</a>
+</div>
+</body>
+</html>

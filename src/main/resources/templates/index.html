@@ -72,23 +72,8 @@
 <div class="container">
     <h1>Welcome to Home Page</h1>
 
-    <div class="info-container">
-        <p>
-            <h3 th:if="${user != null}">
-                <span th:text="${'User Name : ' + user.username }"></span>
-                <span th:text="${'First Name : ' + user.firstName }"></span>
-                <span th:text="${'Last Name : ' + user.lastName }"></span>
-                <span th:text="${'Date Of Birth : ' + user.dateOfBirth }"></span>
-                <span th:text="${'Bio : ' + user.bio }"></span>
-            </h3>
-        </p>
-    </div>
-
-    <br>
-
     <a th:if="!${user}" href="/login" class="creative-button">Log In</a>
     <a th:if="!${user}" href="/signup" class="creative-button">Sign Up</a>
-    <a th:if="${user}" href="/logout" class="creative-button">Log Out</a>
 </div>
 </body>
 </html>

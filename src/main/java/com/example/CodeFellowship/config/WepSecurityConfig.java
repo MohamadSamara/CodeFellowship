@@ -31,19 +31,24 @@ public class WepSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().disable()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/userInfo", "/login", "/signup").permitAll()
-                .anyRequest().authenticated()
+                    .antMatchers("/" , "/login", "/signup").permitAll()
+                    .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/login?error=true") // Update the failure URL
+                    .loginPage("/login")
+                    .permitAll()
+                    .loginProcessingUrl("/perform_login")
+                    .defaultSuccessUrl("/myProfile", true)
+                    .failureUrl("/login?error=true")
                 .and()
                 .logout()
-                .logoutUrl("/perform_logout")
-                .deleteCookies("JSESSIONID");
+//                    .logoutUrl("/perform_logout")
+                    .logoutSuccessUrl("/")
+                    .deleteCookies("JSESSIONID");
+//                .and()
+//                .sessionManagement()
+//                    .invalidSessionUrl("/sessionTimeout");
+
     }
 
 

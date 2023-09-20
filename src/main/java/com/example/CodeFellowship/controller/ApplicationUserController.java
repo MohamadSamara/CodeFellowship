@@ -48,6 +48,11 @@ public class ApplicationUserController {
         return "index.html";
     }
 
+    @GetMapping("/")
+    public String index() {
+        return "index.html";
+    }
+
     @PostMapping("/signup")
     public RedirectView createUser(String username, String password, String firstName, String lastName, String dateOfBirth, String bio) {
 
@@ -65,7 +70,7 @@ public class ApplicationUserController {
 
         authWithHttpServletRequest(username,password);
 
-        return new RedirectView("/");
+        return new RedirectView("/myProfile");
     }
 
     public void authWithHttpServletRequest(String username, String password) {
@@ -77,16 +82,17 @@ public class ApplicationUserController {
 
     }
 
-    @GetMapping("/")
+    @GetMapping("/myProfile")
     public String getHomePage(Principal p, Model m){
 
         if(p != null){
             String username = p.getName();
             ApplicationUser user= applicationUserRepo.findByUsername(username);
             m.addAttribute("user", user);
+            m.addAttribute("post", user.getPostList());
         }
 
-        return "index.html";
+        return "myProfile.html";
     }
 
 }
