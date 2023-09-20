@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    text-align: center;
+    padding: 20px;
+}
+
+img {
+    max-width: 100px;
+    margin-top: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+    font-size: 18px;
+    margin-top: 10px;
+    color: #333;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #fff;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+legend {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+a.creative-button {
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+a.creative-button:hover {
+    background-color: #0056b3;
+}
+
+
+    </style>
+
+</head>
+<body>
+
+
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShg8keaWuTWemET3-1mWqZae05N8W6SLGgGg&usqp=CAU" alt="Profile Picture" style="max-width: 100px; margin-top: 10px;">
+
+<h3 th:if="${user != null}">
+            <span th:text="${'User Name : ' + applicationUser.username }"></span><br>
+            <span th:text="${'First Name : ' + applicationUser.firstName }"></span><br>
+            <span th:text="${'Last Name : ' + applicationUser.lastName }"></span><br>
+            <span th:text="${'Date Of Birth : ' + applicationUser.dateOfBirth }"></span><br>
+            <span th:text="${'Bio : ' + applicationUser.bio }"></span><br>
+        </h3>
+
+
+    <ul>
+        <li th:each="posts : ${post}">
+            <h2 th:text="${posts.body}"></h2>
+            <h2 th:text="${posts.createdAt}"></h2>
+        </li>
+    </ul>
+
+
+
+
+    <br>
+
+    <a th:if="!${user}" href="/login" class="creative-button">Log In</a>
+    <a th:if="!${user}" href="/signup" class="creative-button">Sign Up</a>
+    <a th:if="${user}" href="/logout" class="creative-button">Log Out</a>
+
+</body>
+</html>
