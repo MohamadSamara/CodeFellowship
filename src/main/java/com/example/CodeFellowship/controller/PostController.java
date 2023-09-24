@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class PostController {
@@ -39,6 +40,16 @@ public class PostController {
 
         }
         return "users";
+    }
+
+    @GetMapping("/users")
+    public String getAllUser(Principal p, Model m){
+
+        if(p != null){
+          List <ApplicationUser> applicationUser = applicationUserRepo.findAll();
+            m.addAttribute("applicationUser" , applicationUser);
+        }
+        return "allUsers";
     }
 
     @PostMapping("/addPost")
