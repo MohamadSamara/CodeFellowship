@@ -92,32 +92,36 @@ a.creative-button:hover {
 <body>
 
 
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShg8keaWuTWemET3-1mWqZae05N8W6SLGgGg&usqp=CAU" alt="Profile Picture" style="max-width: 100px; margin-top: 10px;">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShg8keaWuTWemET3-1mWqZae05N8W6SLGgGg&usqp=CAU"
+     alt="Profile Picture" style="max-width: 100px; margin-top: 10px;">
 
 <h3 th:if="${user != null}">
-            <span th:text="${'User Name : ' + applicationUser.username }"></span><br>
-            <span th:text="${'First Name : ' + applicationUser.firstName }"></span><br>
-            <span th:text="${'Last Name : ' + applicationUser.lastName }"></span><br>
-            <span th:text="${'Date Of Birth : ' + applicationUser.dateOfBirth }"></span><br>
-            <span th:text="${'Bio : ' + applicationUser.bio }"></span><br>
-        </h3>
+    <span th:if="${user.username != applicationUser.username}">
+        <form th:action="@{'/follow/' + ${id}}" method="POST">
+            <input type="submit" th:value="${applicationUser.followers.contains(user) ? 'Followed' : 'Follow'}">
+        </form><br>
+    </span>
+    <span th:text="${'User Name : ' + applicationUser.username }"></span><br>
+    <span th:text="${'First Name : ' + applicationUser.firstName }"></span><br>
+    <span th:text="${'Last Name : ' + applicationUser.lastName }"></span><br>
+    <span th:text="${'Date Of Birth : ' + applicationUser.dateOfBirth }"></span><br>
+    <span th:text="${'Bio : ' + applicationUser.bio }"></span><br>
+</h3>
 
 
-    <ul>
-        <li th:each="posts : ${post}">
-            <h2 th:text="${posts.body}"></h2>
-            <h2 th:text="${posts.createdAt}"></h2>
-        </li>
-    </ul>
+<ul>
+    <li th:each="posts : ${post}">
+        <h2 th:text="${posts.body}"></h2>
+        <h2 th:text="${posts.createdAt}"></h2>
+    </li>
+</ul>
 
 
+<br>
 
-
-    <br>
-
-    <a th:if="!${user}" href="/login" class="creative-button">Log In</a>
-    <a th:if="!${user}" href="/signup" class="creative-button">Sign Up</a>
-    <a th:if="${user}" href="/logout" class="creative-button">Log Out</a>
+<a th:if="!${user}" href="/login" class="creative-button">Log In</a>
+<a th:if="!${user}" href="/signup" class="creative-button">Sign Up</a>
+<a th:if="${user}" href="/logout" class="creative-button">Log Out</a>
 
 </body>
 </html>

@@ -21,15 +21,15 @@ Follow these steps to set up and run the CodeFellowship application:
 
    ```gradle
    dependencies {
-       implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-       implementation 'org.springframework.boot:spring-boot-starter-security'
-       implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-       implementation 'org.springframework.boot:spring-boot-starter-web'
-       implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-       developmentOnly 'org.springframework.boot:spring-boot-devtools'
-       runtimeOnly 'org.postgresql:postgresql'
-       testImplementation 'org.springframework.boot:spring-boot-starter-test'
-       testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
    }
    ```
 
@@ -51,43 +51,58 @@ The application should now be running locally at `http://localhost:8080`.
 
 ## Usage
 
-1. Access the application in your web browser:
+1. Access the application:
+   - Visit `http://localhost:8080` in your web browser.
 
-   ```
-   http://localhost:8080
-   ```
+2. Login or Signup:
+   - Use the `/login` page to log in if you already have an account.
+   - Use the `/signup` page to create a new account.
 
-2. Sign up for a new account if you don't have one. Provide your username, password, first name, last name, date of birth, and bio.
+3. Explore Features:
+   - After logging in, you can access your profile at `/myProfile`.
+   - Follow other users to see their posts in your feed using the `/follow/{id}` endpoint.
+   - Add posts to your profile using the `/addPost` endpoint.
+   - Explore other users and their posts on the `/users` and `/users/{id}` pages.
+   - Logout using the `/logout` link.
 
-3. Log in with your credentials if you already have an account.
+## Controllers
 
-4. Once logged in, you can view your profile, create posts, visit users profile, and log out.
+### 1. `ApplicationUserController`
 
-## Class Details
+#### Endpoints:
+- `/login`: Renders the login page.
+- `/signup`: Renders the signup page.
+- `/logout`: Logs the user out.
+- `/`: Renders the homepage.
 
-### `ApplicationUser` (models/ApplicationUser.java)
+#### Description:
+- Manages user authentication and registration.
+- Allows users to log in, sign up, and log out.
+- Encrypts and stores user passwords securely.
+- Implements a custom `authWithHttpServletRequest` method for programmatic authentication.
+- Renders the user's profile page after successful login.
 
-- Represents a user of the application.
-- Implements the `UserDetails` interface for Spring Security.
-- Stores user data such as username, password (encrypted), first name, last name, date of birth, and bio.
-- Has a one-to-many relationship with `Post` entities to represent user posts.
+### 2. `FollowController`
 
-### `Post` (models/Post.java)
+#### Endpoints:
+- `/follow/{id}`: Handles user following actions.
+- `/feed`: Displays the user's feed of posts from followed users.
 
-- Represents a user's post.
-- Stores the post body and the user who created it.
-- Includes a timestamp for the creation date.
+#### Description:
+- Allows users to follow other users.
+- Users can follow/unfollow others by interacting with the `/follow/{id}` endpoint.
+- Displays posts from followed users on the `/feed` page.
 
-### `PostController` (controller/PostController.java)
+### 3. `PostController`
 
-- Manages user posts and user profiles.
-- Provides endpoints for creating and viewing posts.
-- Handles post creation and redirects to the user's profile page.
-- Implements security checks to ensure users are logged in.
+#### Endpoints:
+- `/users/{id}`: Renders a user's profile page and displays their posts.
+- `/users`: Lists all users.
+- `/addPost`: Adds a new post to the user's profile.
 
-### `ApplicationUserController` (controller/ApplicationUserController.java)
+#### Description:
+- Manages user profiles and posts.
+- Displays a user's profile and their posts on the `/users/{id}` page.
+- Lists all users on the `/users` page.
+- Allows users to add new posts to their profiles via the `/addPost` endpoint.
 
-- Manages user registration, login, and profile viewing.
-- Implements security-related functionalities, including password encryption.
-- Handles user authentication and redirects to the appropriate pages.
-- Provides endpoints for user registration, login, and profile viewing.
