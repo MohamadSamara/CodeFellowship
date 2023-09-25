@@ -122,6 +122,8 @@ a.creative-button:hover {
 <div class="container">
     <h1>Welcome to Home Page</h1>
     <a th:href="@{/users}" class="creative-button">All Users Profile</a>
+    <a th:href="@{/feed}" class="creative-button">feed</a>
+
     <div class="info-container">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShg8keaWuTWemET3-1mWqZae05N8W6SLGgGg&usqp=CAU" alt="Profile Picture" style="max-width: 100px; margin-top: 10px;">
         <h3  th:if="${user != null}">

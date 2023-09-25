@@ -46,8 +46,9 @@ public class PostController {
     public String getAllUser(Principal p, Model m){
 
         if(p != null){
-          List <ApplicationUser> applicationUser = applicationUserRepo.findAll();
-            m.addAttribute("applicationUser" , applicationUser);
+            List <ApplicationUser> applicationUser = applicationUserRepo.findAll();
+            m.addAttribute("applicationUser", applicationUser);
+            m.addAttribute("p", p); // Add the p variable to the model
         }
         return "allUsers";
     }
